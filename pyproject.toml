@@ -11,6 +11,7 @@ python = "^3.12"
 python-dotenv = "^1.2.1"
 psycopg2-binary = "^2.9.11"
 ipython = "^9.10.0"
+pillow = "^12.1.0"
 
 
 [tool.poetry.group.dev.dependencies]
