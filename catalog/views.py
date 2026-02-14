@@ -17,5 +17,3 @@ def one_product(request, pk):
     product = Product.objects.get(id=pk)
     context = {"product" : product}
     return render(request, "product/product.html", context=context)
-
-
