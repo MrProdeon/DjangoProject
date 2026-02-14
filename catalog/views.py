@@ -4,7 +4,9 @@ from catalog.models import Category, Product
 
 # Create your views here.
 def home_page(request):
-    return render(request, "home_page/home.html")
+    products = Product.objects.all()
+    context = {"products" : products}
+    return render(request, "home_page/home.html", context=context)
 
 
 def contact(request):
