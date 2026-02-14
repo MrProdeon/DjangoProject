@@ -1,9 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from catalog.models import Category, Product
 
 # Create your views here.
 def home_page(request):
-    return render(request, "home_page/home.html")
+    products = Product.objects.all()
+    context = {"products" : products}
+    return render(request, "home_page/home.html", context=context)
 
 
 def contact(request):
@@ -12,3 +15,7 @@ def contact(request):
     return render(request, "contact/contacts.html")
 
 
+def one_product(request, pk):
+    product = Product.objects.get(id=pk)
+    context = {"product" : product}
+    return render(request, "product/product.html", context=context)

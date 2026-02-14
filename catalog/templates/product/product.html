@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{%block title%}Главная страница{%endblock%}
+
+{%block content%}
+<div class="container mt-5">
+    <img src="{{ product.image.url }}" class="img-fluid rounded mx-auto d-block" alt="{{ product.name }}">
+</div>
+
+
+<div class="position-relative">
+    <div class="d-flex justify-content-center align-items-center" style="height: 100px;">
+        <h1>{{ product.name }}</h1>
+    </div>
+
+    <div class="card position-absolute start-50 translate-middle-x mt-3" style="width: 60rem; top: 80px;">
+        <div class="card-body">
+            <h5 class="card-title">{{ product.price }}</h5>
+            <p class="card-text">{{ product.description }}
+            </p>
+            <button type="button" class="btn btn-primary btn-lg">Купить</button>
+        </div>
+    </div>
+</div>
+{%endblock%}
