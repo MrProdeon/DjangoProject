@@ -3,5 +3,24 @@
 {%block title%}Добавление товара{%endblock%}
 
 {%block content%}
-
+<form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="exampleInputProduct" class="form-label">Название товара</label>
+        <input type="text" class="form-control" id="exampleInputProduct" name="name">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPrice" class="form-label">Цена</label>
+        <input type="text" class="form-control" id="exampleInputPrice" name="price">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputCategory" class="form-label">Категория</label>
+        <input type="text" class="form-control" id="exampleInputCategory" name="category">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputDescription" class="form-label">Описание</label>
+        <input type="text" class="form-control" id="exampleInputDescription" name="description">
+    </div>
+    <button type="submit" class="btn btn-primary">Отправить</button>
+</form>
 {%endblock%}

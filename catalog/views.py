@@ -27,4 +27,26 @@ def one_product(request, pk):
     return render(request, "product/product.html", context=context)
 
 def add_product(request):
-    pass
+    if request.method == "POST":
+        name = request.POST.get("name")
+        price = request.POST.get("price")
+        category = request.POST.get("category")
+        description = request.POST.get("description")
+
+        category_obj, is_created_category = Category.objects.get_or_create(name=category.title())
+
+        product, created = Product.objects.get_or_create(
+            name=name,
+            defaults={
+                "price": price,
+                "category": category_obj,
+                "description": description
+            }
+        )
+
+        if created:
+            return HttpResponse("<div><h1>Данные успешно отправлены</h1></div>")
+        else:
+            return HttpResponse("<div><h1>Данные об этом товаре уже есть.</h1></div>")
+
+    return render(request, "product/add_product.html")
