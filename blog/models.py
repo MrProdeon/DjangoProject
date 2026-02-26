@@ -8,7 +8,7 @@ class BlogEntry(models.Model):
     preview = models.ImageField(upload_to='blogs/', verbose_name="изображение",
                               blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    is_publicated = models.BooleanField(default=False)
+    is_publicated = models.BooleanField(default=False, verbose_name="Опубликовано")
     views_count = models.IntegerField(default=0)
 
     class Meta:

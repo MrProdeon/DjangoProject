@@ -9,7 +9,7 @@ from django.views.generic.edit import CreateView, UpdateView
 class BlogCreateView(CreateView):
 
     model = BlogEntry
-    fields = ["name", "content", "preview"]
+    fields = ["name", "content", "preview", "is_publicated"]
     template_name = "blog_create_view.html"
     success_url = reverse_lazy("blogs:home")
 
@@ -33,7 +33,7 @@ class BlogDetailView(DetailView):
 
 class BlogUpdateView(UpdateView):
     model = BlogEntry
-    fields = ["name", "content", "preview"]
+    fields = ["name", "content", "preview", "is_publicated"]
     template_name = "blog_create_view.html"
     success_url = reverse_lazy("blogs:home")
 
