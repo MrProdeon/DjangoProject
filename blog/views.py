@@ -18,6 +18,11 @@ class BlogListView(ListView):
     template_name = "home.html"
     context_object_name = "posts"
 
+class BlogDetailView(DetailView):
+    model = BlogEntry
+    template_name = "blog_detail.html"
+    context_object_name = "post"
+
 class BlogUpdateView(UpdateView):
     model = BlogEntry
     fields = ["name", "content", "preview"]
