@@ -11,7 +11,7 @@ class BlogCreateView(CreateView):
     model = BlogEntry
     fields = ["name", "content", "preview"]
     template_name = "blog_create_view.html"
-    success_url = reverse_lazy("blog:home")
+    success_url = reverse_lazy("blogs:home")
 
 class BlogListView(ListView):
     model = BlogEntry
@@ -22,7 +22,7 @@ class BlogUpdateView(UpdateView):
     model = BlogEntry
     fields = ["name", "content", "preview"]
     template_name = "blog_create_view.html"
-    success_url = reverse_lazy("blog:home")
+    success_url = reverse_lazy("blogs:home")
 
 class BlogDeleteView(DeleteView):
     model = BlogEntry

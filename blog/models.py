@@ -7,8 +7,8 @@ class BlogEntry(models.Model):
     content = models.TextField(verbose_name="Содержание")
     preview = models.ImageField(verbose_name="Изображение")
     created_at = models.DateTimeField(auto_now_add=True)
-    is_publicated = models.BooleanField()
-    views_count = models.IntegerField()
+    is_publicated = models.BooleanField(default=False)
+    views_count = models.IntegerField(default=0)
 
     class Meta:
         verbose_name = "Пост"
