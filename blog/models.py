@@ -9,4 +9,11 @@ class BlogEntry(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     is_publicated = models.BooleanField()
     views_count = models.IntegerField()
+
+    class Meta:
+        verbose_name = "Пост"
+        verbose_name_plural = 'Посты'
+
+    def __str__(self):
+        return f"Название поста: {self.name}"
     
