@@ -18,4 +18,10 @@ class BlogListView(ListView):
     template_name = "home.html"
     context_object_name = "posts"
 
+class BlogUpdateView(UpdateView):
+    model = BlogEntry
+    fields = ["name", "content", "preview"]
+    template_name = "blog_create_view.html"
+    success_url = reverse_lazy("blog:home")
+
 
