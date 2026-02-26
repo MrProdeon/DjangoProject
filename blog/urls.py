@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path
 from . import views
 
-app_name = "blog"
+app_name = "blogs"
 
 urlpatterns = [
     path("", views.BlogListView.as_view(), name="home"),
