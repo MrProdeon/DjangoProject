@@ -8,12 +8,10 @@
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="fw-light">Пример альбома</h1>
-                <p class="lead text-muted">Что-то краткое и ведущее о коллекции ниже - ее содержание, создатель и т.д.
-                    Сделайте ее короткой и интересной, но не слишком короткой, чтобы люди просто не пропустили ее
-                    полностью.</p>
+                <h1 class="fw-light">YourBlogs</h1>
+                <p class="lead text-muted">Сайт для создания и просмотра блогов.</p>
                 <p>
-                    <a href="#" class="btn btn-primary my-2">Главный призыв к действию</a>
+                    <a href="{% url 'blogs:create' %}" class="btn btn-primary my-2">Создать пост</a>
                     <a href="#" class="btn btn-secondary my-2">Вторичное действие</a>
                 </p>
             </div>
@@ -49,8 +47,9 @@
                             <p class="card-text">{{ post.content }}</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Смотреть</button>
+                                    <a href="{% url 'blogs:detail' post.pk %}" class="btn btn-sm btn-outline-secondary">Смотреть</a>
                                     <a href="{% url 'blogs:update' post.pk %}" class="btn btn-sm btn-outline-secondary">Редактировать</a>
+                                    <a href="{% url 'blogs:delete' post.pk %}" class="btn btn-sm btn-outline-secondary">Удалить</a>
                                 </div>
                                 <small class="text-muted">{{ post.name }}</small>
                             </div>
