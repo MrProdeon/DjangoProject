@@ -23,6 +23,14 @@ class BlogDetailView(DetailView):
     template_name = "blog_detail.html"
     context_object_name = "post"
 
+    def get_object(self, queryset=None):
+
+        obj = super().get_object()
+        obj.views_count += 1
+        obj.save()
+
+        return obj
+
 class BlogUpdateView(UpdateView):
     model = BlogEntry
     fields = ["name", "content", "preview"]
