@@ -5,7 +5,8 @@ class BlogEntry(models.Model):
 
     name = models.CharField(max_length=150, verbose_name="Название")
     content = models.TextField(verbose_name="Содержание")
-    preview = models.ImageField(verbose_name="Изображение")
+    preview = models.ImageField(upload_to='blogs/', verbose_name="изображение",
+                              blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     is_publicated = models.BooleanField(default=False)
     views_count = models.IntegerField(default=0)
