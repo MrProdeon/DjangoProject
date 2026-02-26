@@ -3,9 +3,9 @@ from django.db import models
 # Create your models here.
 class BlogEntry(models.Model):
 
-    name = models.CharField(max_length=150)
-    content = models.TextField()
-    preview = models.ImageField()
+    name = models.CharField(max_length=150, verbose_name="Название")
+    content = models.TextField(verbose_name="Содержание")
+    preview = models.ImageField(verbose_name="Изображение")
     created_at = models.DateTimeField(auto_now_add=True)
     is_publicated = models.BooleanField()
     views_count = models.IntegerField()
