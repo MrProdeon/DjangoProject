@@ -7,6 +7,17 @@ class ProductForm(forms.ModelForm):
         model = Product
         fields = ["name", "description", "category", "price", "image"]
 
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["name"].widget.attrs.update({'class' : 'form-control',
+                                                 'placeholder' : 'Введите название'})
+        self.fields["description"].widget.attrs.update({'class': 'form-control',
+                                                 'placeholder': 'Введите описание'})
+        self.fields["price"].widget.attrs.update({'class': 'form-control',
+                                                        'placeholder': 'Введите стоимость'})
+
+
     def clean_price(self):
         price = self.cleaned_data.get("price")
         if price < 0:
