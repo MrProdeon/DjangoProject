@@ -46,3 +46,6 @@ class ProductForm(forms.ModelForm):
                 self.add_error("description", f'Имя не может содержать слово {", ".join(is_description_in_ban)}')
 
         return cleaned_data
+
+class ProductDeleteForm(forms.Form):
+    pass

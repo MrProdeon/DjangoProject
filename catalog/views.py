@@ -4,7 +4,7 @@ from catalog.models import Category, Product, Contacts
 from django.views.generic import ListView, DetailView, TemplateView, UpdateView, DeleteView
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
-from catalog.forms import ProductForm
+from catalog.forms import ProductForm, ProductDeleteForm
 
 # # Create your views here.
 # def home_page(request):
