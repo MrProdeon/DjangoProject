@@ -23,6 +23,7 @@ class Product(models.Model):
     price = models.FloatField(verbose_name="цена")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="дата создания")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="дата обновления")
+    is_in_stock = models.BooleanField(default=True, verbose_name="В наличии")
 
     def __str__(self):
         return f"{self.name} {self.price}"

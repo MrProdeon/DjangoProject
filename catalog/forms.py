@@ -10,7 +10,7 @@ class ProductForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = ["name", "description", "category", "price", "image"]
+        fields = ["name", "description", "category", "price", "image", "is_in_stock"]
 
 
     def __init__(self, *args, **kwargs):
@@ -20,7 +20,9 @@ class ProductForm(forms.ModelForm):
         self.fields["description"].widget.attrs.update({'class': 'form-control',
                                                  'placeholder': 'Введите описание'})
         self.fields["price"].widget.attrs.update({'class': 'form-control',
-                                                        'placeholder': 'Введите стоимость'})
+                                                  'placeholder': 'Введите стоимость'})
+        self.fields["is_in_stock"].widget.attrs.update({'class': 'form-check-input',
+                                                        'id': 'stock_checkbox'})
 
 
     def clean_price(self):
