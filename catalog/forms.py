@@ -1,10 +1,19 @@
 from django import forms
 from catalog.models import Product
+from django.core.exceptions import ValidationError
 
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = ["name", "description", "category", "price", "image"]
+
+    def clean_price(self):
+        price = self.cleaned_data.get("price")
+        if price < 0:
+           raise ValidationError("Цена не может быть отрицательной")
+
+        return price
+
 
     def clean(self):
         cleaned_data = super().clean()
@@ -15,12 +24,14 @@ class ProductForm(forms.ModelForm):
                      "биржа", "дешево", "бесплатно",
                      "обман", "полиция", "радар"]
 
-        is_name_in_ban = name.lower() in ban_words
-        is_description_in_ban = description.lower() in ban_words
+        is_name_in_ban = [word for word in ban_words if word in name.lower()]
+        is_description_in_ban = [word for word in ban_words if word in description.lower()]
 
-        if name and description and any((is_description_in_ban, is_description_in_ban)):
+        if name and description and any((is_name_in_ban, is_description_in_ban)):
 
             if is_name_in_ban:
-                self.add_error("name", f'Имя не может содержать слово {name}')
+                self.add_error("name", f'Имя не может содержать слово: {", ".join(is_name_in_ban)}')
             if is_description_in_ban:
-                self.add_error("description", f'Имя не может содержать слово {description}')
+                self.add_error("description", f'Имя не может содержать слово {", ".join(is_description_in_ban)}')
+
+        return cleaned_data
