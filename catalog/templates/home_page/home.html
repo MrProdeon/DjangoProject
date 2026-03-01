@@ -3,6 +3,12 @@
 {%block title%}Главная страница{%endblock%}
 
 {%block content%}
+<div class="offset-2 col-md-10 p-4">
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">Главная</h1>
+        <p class="text-center lead mb-5">Вы находитесь на сайте, предназначенном для продажи товаров.</p>
+    </div>
+</div>
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
     {% for product in products %}
     <div class="col">
