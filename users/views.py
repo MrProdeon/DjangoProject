@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.views.generic import CreateView
 from users.forms import CustomUserCreationForms
 from django.urls import reverse_lazy
+from django.contrib.auth import login
 
 
 
@@ -17,10 +18,10 @@ class RegisterView(CreateView):
         self.send_welcome_email(user.email)
         return super().form_valid(form)
 
-    @staticmethod
+
     def send_welcome_email(self, user_email):
         subject = "Добро пожаловать на наш сайт!"
         message = "Благодарим за регистрацию!"
-        from_email = "" # NEED TO CREATE
+        from_email = "Prodeon21@yandex.ru" # NEED TO CREATE
         recipient_list = [user_email]
-        send_mail(subject, message, recipient_list, from_email)
+        send_mail(subject, message, from_email, recipient_list)
