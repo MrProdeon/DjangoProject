@@ -5,6 +5,7 @@ from django.views.generic import ListView, DetailView, TemplateView, UpdateView,
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from catalog.forms import ProductForm, ProductDeleteForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # # Create your views here.
 # def home_page(request):
@@ -31,7 +32,7 @@ class ProductListView(ListView):
 #         return HttpResponse("<div><h1>Данные успешно отправлены</h1></>")
 #     return render(request, "contact/contacts.html", context=context)
 
-class Contact(TemplateView):
+class Contact(LoginRequiredMixin, TemplateView):
 
     model = Contacts
     template_name = "contact/contacts.html"
@@ -49,7 +50,7 @@ class Contact(TemplateView):
 #     context = {"product" : product}
 #     return render(request, "product/product.html", context=context)
 
-class ProductDetailView(DetailView):
+class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
     template_name = "product/product.html"
     context_object_name = "product"
@@ -80,19 +81,19 @@ class ProductDetailView(DetailView):
 #     return render(request, "product/add_product.html")
 #
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     template_name = "product/add_product.html"
     success_url = reverse_lazy("catalog:home")
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     template_name = "product/add_product.html"
     success_url = reverse_lazy("catalog:home")
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     form_class = ProductDeleteForm
     template_name = "product/delete_product.html"
