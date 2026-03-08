@@ -1,3 +1,4 @@
+from django.contrib.auth.views import LoginView, LogoutView
 from django.core.mail import send_mail
 from django.shortcuts import render
 from django.views.generic import CreateView
@@ -25,3 +26,10 @@ class RegisterView(CreateView):
         from_email = "Prodeon21@yandex.ru" # NEED TO CREATE
         recipient_list = [user_email]
         send_mail(subject, message, from_email, recipient_list)
+
+class CustomLoginView(LoginView):
+    template_name = "login.html"
+    success_url = reverse_lazy("catalog:home")
+
+class CustomLogoutView(LogoutView):
+    next_page = reverse_lazy('catalog:home')
