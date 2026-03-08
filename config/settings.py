@@ -148,3 +148,6 @@ EMAIL_USE_SSL = True
 EMAIL_HOST_USER = 'Prodeon21@yandex.ru'
 EMAIL_HOST_PASSWORD = 'uqzleqgoiuqfsptq'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+LOGIN_REDIRECT_URL = 'catalog:home'
+LOGOUT_REDIRECT_URL = 'catalog:home'
