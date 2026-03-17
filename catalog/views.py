@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from catalog.models import Category, Product, Contacts
 from django.views.generic import ListView, DetailView, TemplateView, UpdateView, DeleteView
@@ -98,3 +98,15 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
     form_class = ProductDeleteForm
     template_name = "product/delete_product.html"
     success_url = reverse_lazy("catalog:home")
+
+def unpublish_product(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+
+    if product.is_publicated:
+        product.is_publicated = False
+    else:
+        product.is_publicated = True
+
+    product.save()
+
+    return redirect("catalog:product", pk=product.id)
