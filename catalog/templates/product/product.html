@@ -25,7 +25,8 @@
             <a href="{% url 'catalog:home' %}" class="btn btn-primary btn-lg">Купить</a>
             {% if perms.catalog.can_unpublish_product and product.is_publicated%}
             <a href="{% url 'catalog:unpublish_product' product.id %}" class="btn btn-primary btn-lg">Отменить публикацию</a>
-            {% else %}
+            {% endif %}
+            {% if perms.catalog.can_unpublish_product and not product.is_publicated%}
             <a href="{% url 'catalog:unpublish_product' product.id %}" class="btn btn-primary btn-lg">Опубликовать</a>
             {% endif %}
             {% if perms.catalog.can_unpublish_product %}
