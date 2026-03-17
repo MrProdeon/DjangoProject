@@ -5,7 +5,8 @@ from django.views.generic import ListView, DetailView, TemplateView, UpdateView,
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from catalog.forms import ProductForm, ProductDeleteForm
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.decorators import login_required, permission_required
 
 # # Create your views here.
 # def home_page(request):
@@ -93,12 +94,16 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "product/add_product.html"
     success_url = reverse_lazy("catalog:home")
 
-class ProductDeleteView(LoginRequiredMixin, DeleteView):
+class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin,DeleteView):
+    permission_required = "catalog:delete_product"
+
     model = Product
     form_class = ProductDeleteForm
     template_name = "product/delete_product.html"
     success_url = reverse_lazy("catalog:home")
 
+@login_required
+@permission_required("catalog:can_unpublish_product")
 def unpublish_product(request, pk):
     product = get_object_or_404(Product, pk=pk)
 
