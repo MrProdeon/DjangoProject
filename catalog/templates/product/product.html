@@ -22,7 +22,16 @@
             <h5 class="card-title">{{ product.price }}</h5>
             <p class="card-text">{{ product.description }}
             </p>
-            <button type="button" class="btn btn-primary btn-lg">Купить</button>
+            <a href="{% url 'catalog:home' %}" class="btn btn-primary btn-lg">Купить</a>
+            {% if perms.catalog.can_unpublish_product and product.is_publicated%}
+            <a href="{% url 'catalog:unpublish_product' product.id %}" class="btn btn-primary btn-lg">Отменить публикацию</a>
+            {% endif %}
+            {% if perms.catalog.can_unpublish_product and not product.is_publicated%}
+            <a href="{% url 'catalog:unpublish_product' product.id %}" class="btn btn-primary btn-lg">Опубликовать</a>
+            {% endif %}
+            {% if user == product.owner or perms.catalog.delete_product%}
+            <a href="{% url 'catalog:delete_product' product.id %}" class="btn btn-primary btn-lg">Удалить</a>
+            {% endif %}
         </div>
     </div>
 </div>
