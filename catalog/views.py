@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from catalog.models import Category, Product, Contacts
 from django.views.generic import ListView, DetailView, TemplateView, UpdateView, DeleteView
 from django.views.generic.edit import CreateView
@@ -103,7 +103,7 @@ class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin,DeleteView):
     success_url = reverse_lazy("catalog:home")
 
 @login_required
-@permission_required("catalog:can_unpublish_product")
+@permission_required("catalog:can_unpublish_product", raise_exception=True)
 def unpublish_product(request, pk):
     product = get_object_or_404(Product, pk=pk)
 
