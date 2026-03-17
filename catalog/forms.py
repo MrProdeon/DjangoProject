@@ -10,7 +10,7 @@ class ProductForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = ["name", "description", "category", "price", "image", "is_in_stock"]
+        fields = ["name", "description", "category", "price", "image", "is_in_stock", "is_publicated"]
 
 
     def __init__(self, *args, **kwargs):
@@ -43,9 +43,9 @@ class ProductForm(forms.ModelForm):
         return name
 
     def clean_description(self):
-        name = self.cleaned_data.get("description")
+        description = self.cleaned_data.get("description")
 
-        is_description_in_ban = [word for word in self.ban_words if word in name.lower()]
+        is_description_in_ban = [word for word in self.ban_words if word in description.lower()]
 
         if is_description_in_ban:
             raise ValidationError(f'Описание не может содержать слово: {", ".join(is_description_in_ban)}')
