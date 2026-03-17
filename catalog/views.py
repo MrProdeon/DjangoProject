@@ -88,19 +88,39 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     template_name = "product/add_product.html"
     success_url = reverse_lazy("catalog:home")
 
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
+
     model = Product
     form_class = ProductForm
     template_name = "product/add_product.html"
     success_url = reverse_lazy("catalog:home")
 
-class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin,DeleteView):
-    permission_required = "catalog:delete_product"
+    def get(self, request, *args, **kwargs):
+        product = get_object_or_404(Product, pk=kwargs['pk'])
+
+        if product.owner != request.user:
+            return HttpResponseForbidden("Вы не можете редактировать этот продукт")
+
+        return super().get(request, *args, **kwargs)
+
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
 
     model = Product
     form_class = ProductDeleteForm
     template_name = "product/delete_product.html"
     success_url = reverse_lazy("catalog:home")
+
+    def get(self, request, *args, **kwargs):
+        product = get_object_or_404(Product, pk=kwargs['pk'])
+
+        if product.owner != request.user and not request.user.has_perm("catalog.delete_product"):
+            return HttpResponseForbidden("Вы не можете удалять этот продукт")
+
+        return super().get(request, *args, **kwargs)
 
 @login_required
 @permission_required("catalog:can_unpublish_product", raise_exception=True)
