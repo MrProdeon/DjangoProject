@@ -1,5 +1,6 @@
 from django.contrib import admin
 from catalog.models import Category, Product, Contacts
+from users.models import CustomUser
 
 
 @admin.register(Category)
@@ -20,3 +21,7 @@ class ContactsAdmin(admin.ModelAdmin):
     list_display = ("id", "name", "number")
     list_filter = ("id", "name")
     search_fields = ("name", "number")
+
+@admin.register(CustomUser)
+class CustomUserAdmin(admin.ModelAdmin):
+    pass
