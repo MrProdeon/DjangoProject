@@ -7,7 +7,8 @@ from django.urls import reverse_lazy
 from catalog.forms import ProductForm, ProductDeleteForm
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required, permission_required
-
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 # # Create your views here.
 # def home_page(request):
 #     products = Product.objects.all()
@@ -51,6 +52,7 @@ class Contact(LoginRequiredMixin, TemplateView):
 #     context = {"product" : product}
 #     return render(request, "product/product.html", context=context)
 
+@method_decorator(cache_page(60 * 15), name="dispatch")
 class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
     template_name = "product/product.html"
@@ -81,6 +83,7 @@ class ProductDetailView(LoginRequiredMixin, DetailView):
 #
 #     return render(request, "product/add_product.html")
 #
+
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
