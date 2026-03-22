@@ -153,6 +153,7 @@ LOGIN_REDIRECT_URL = 'catalog:home'
 LOGOUT_REDIRECT_URL = 'catalog:home'
 LOGIN_URL = "users:login"
 
+CACHE_ENABLED = True
 
 CACHES = {
     'default': {
