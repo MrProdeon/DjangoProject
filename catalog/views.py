@@ -9,6 +9,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.contrib.auth.decorators import login_required, permission_required
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
+from config.settings import CACHE_ENABLED
+from django.core.cache import cache
 # # Create your views here.
 # def home_page(request):
 #     products = Product.objects.all()
@@ -20,6 +22,18 @@ class ProductListView(ListView):
     model = Product
     template_name = "home_page/home.html"
     context_object_name = "products"
+
+    def get_queryset(self):
+        if not CACHE_ENABLED:
+            queryset = super().get_queryset()
+            return queryset
+
+        queryset = cache.get("cache_queryset")
+        if not queryset:
+            queryset = super().get_queryset()
+            cache.set("cache_queryset", queryset, 60 * 15)
+        return queryset
+
 
 
 
