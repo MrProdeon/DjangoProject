@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 from os import getenv
 
-
+from django.conf.global_settings import EMAIL_BACKEND, EMAIL_HOST
 from dotenv import load_dotenv
 load_dotenv(override=True)
 
@@ -140,20 +140,20 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 AUTH_USER_MODEL = 'users.CustomUser'
 
 # Email server
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.yandex.ru'
-EMAIL_PORT = 465
-EMAIL_USE_TLS = False
-EMAIL_USE_SSL = True
-EMAIL_HOST_USER = 'Prodeon21@yandex.ru'
-EMAIL_HOST_PASSWORD = 'uqzleqgoiuqfsptq'
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_BACKEND = os.getenv("EMAIL_BACKEND")
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_PORT = os.getenv("EMAIL_PORT")
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS")
+EMAIL_USE_SSL =  os.getenv("EMAIL_USE_SSL")
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
 
 LOGIN_REDIRECT_URL = 'catalog:home'
 LOGOUT_REDIRECT_URL = 'catalog:home'
 LOGIN_URL = "users:login"
 
-CACHE_ENABLED = True
+CACHE_ENABLED = os.getenv("CACHE_ENABLED", "False").lower() == "true"
 
 CACHES = {
     'default': {
