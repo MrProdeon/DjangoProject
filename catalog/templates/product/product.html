@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{%block title%}Главная страница{%endblock%}
+
+{%block content%}
+{% if product.image %}
+<div class="container mt-5">
+    <img src="{{ product.image.url }}" class="img-fluid rounded mx-auto d-block" alt="{{ product.name }}">
+</div>
+{% else %}
+
+{% endif %}
+
+
+<div class="position-relative">
+    <div class="d-flex justify-content-center align-items-center" style="height: 100px;">
+        <h1>{{ product.name }}</h1>
+    </div>
+
+    <div class="card position-absolute start-50 translate-middle-x mt-3" style="width: 60rem; top: 80px;">
+        <div class="card-body">
+            <h5 class="card-title">{{ product.price }}</h5>
+            <p class="card-text">{{ product.description }}
+            </p>
+            <a href="{% url 'catalog:home' %}" class="btn btn-primary btn-lg">Купить</a>
+            {% if perms.catalog.can_unpublish_product and product.is_publicated%}
+            <a href="{% url 'catalog:unpublish_product' product.id %}" class="btn btn-primary btn-lg">Отменить публикацию</a>
+            {% endif %}
+            {% if perms.catalog.can_unpublish_product and not product.is_publicated%}
+            <a href="{% url 'catalog:unpublish_product' product.id %}" class="btn btn-primary btn-lg">Опубликовать</a>
+            {% endif %}
+            {% if user == product.owner or perms.catalog.change_product%}
+            <a href="{% url 'catalog:update_product' product.id %}" class="btn btn-primary btn-lg">Редактировать</a>
+            {% endif %}
+            {% if user == product.owner or perms.catalog.delete_product%}
+            <a href="{% url 'catalog:delete_product' product.id %}" class="btn btn-primary btn-lg">Удалить</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{%endblock%}
